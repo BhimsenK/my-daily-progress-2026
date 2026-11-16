@@ -1,333 +1,252 @@
-
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#09131b">
-<title>My Daily Progress</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050914">
+<meta name="description" content="My Daily Progress — a personal routine tracker with date-based history and lifetime consistency.">
+<title>MY DAILY PROGRESS — Living Consistency Engine</title>
 <style>
-:root {
-  --bg:#071018;
-  --line:#263d49;
-  --text:#edf7fb;
-  --muted:#9bb0bc;
-  --cyan:#42d6d0;
-  --cyan2:#8cf1e8;
-}
-* {box-sizing:border-box}
-body {
-  margin:0;
-  background:radial-gradient(ellipse at 80% -10%,#12333b,transparent 38%),var(--bg);
-  color:var(--text);
-  font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-}
-.wrap {max-width:900px;margin:auto;padding:18px 14px 42px}
-.top {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}
-.brand {display:flex;align-items:center;gap:10px}
-.logo {
-  width:42px;height:42px;border-radius:14px;
-  background:linear-gradient(135deg,#48e0d3,#177c88);
-  display:grid;place-items:center;color:#06151b;font-weight:900;font-size:20px;
-}
-.eyebrow {font-size:11px;letter-spacing:2px;color:var(--cyan);font-weight:800}
-.brand h1 {font-size:18px;margin:1px 0}
-.datepill {border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--muted);font-size:11px;white-space:nowrap}
-.hero {
-  background:linear-gradient(130deg,#142b37,#10212d 60%,#12343a);
-  border:1px solid #2b5059;border-radius:21px;padding:18px;margin-bottom:14px;
-}
-.herohead {display:flex;justify-content:space-between;gap:10px}
-.hero h2 {font-size:22px;margin:3px 0}
-.hero p {margin:3px 0;color:var(--muted)}
-.percent {font-size:29px;font-weight:850;color:var(--cyan2)}
-.bar {height:9px;background:#263d48;border-radius:20px;overflow:hidden;margin:14px 0 12px}
-.bar span {display:block;height:100%;background:linear-gradient(90deg,#27bcb8,#8cf1e8);width:0;transition:width .2s}
-.stats {display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat {background:#0b1a24a8;border:1px solid #29414c;border-radius:12px;padding:9px}
-.stat b {display:block;font-size:16px}
-.stat small {color:var(--muted);font-size:10px}
-.days {display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:14px 0}
-.day {border:1px solid var(--line);background:#0e1b25;color:var(--muted);border-radius:12px;padding:8px 2px;text-align:center;cursor:pointer}
-.day strong {display:block;font-size:12px}
-.day small {font-size:10px}
-.day.active {background:#123b40;border-color:var(--cyan);color:var(--cyan2)}
-.mini {height:3px;background:#314550;border-radius:5px;margin:6px 5px 0;overflow:hidden}
-.mini span {display:block;height:100%;background:var(--cyan)}
-.notice {display:none;border:1px solid #6c5630;background:#2a2418;color:#e9d8a8;padding:10px 12px;border-radius:11px;margin:12px 0;font-size:12px}
-.section-title {display:flex;justify-content:space-between;align-items:center;margin:22px 2px 9px}
-.section-title h2 {font-size:14px;letter-spacing:1.1px;margin:0}
-.section-title span {color:var(--muted);font-size:11px}
-.group {background:linear-gradient(145deg,#12232e,#0d1a24);border:1px solid var(--line);border-radius:16px;margin:9px 0;overflow:hidden}
-.grouphead {padding:12px 14px;border-bottom:1px solid #203542;display:flex;justify-content:space-between;align-items:center}
-.grouphead h3 {margin:0;font-size:13px;letter-spacing:.5px}
-.grouphead small {color:var(--muted);font-size:10px}
-.tasks {padding:4px 12px 7px}
-.task {display:flex;align-items:center;gap:10px;padding:9px 3px;border-bottom:1px solid #1d303b;cursor:pointer;min-height:41px}
-.task:last-child {border:0}
-.task input {appearance:none;width:19px;height:19px;flex:0 0 19px;border:1.5px solid #607985;border-radius:6px;background:#0b1720;margin:0;cursor:pointer}
-.task input:checked {background:var(--cyan);border-color:var(--cyan);position:relative}
-.task input:checked:after {content:"✓";position:absolute;color:#062027;font-size:14px;font-weight:900;left:3px;top:-1px}
-.task .label {flex:1}
-.task.done .label {color:#8da5ae;text-decoration:line-through}
-.info {padding:10px 13px;color:var(--muted);font-size:11px}
-.hourgrid {display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:10px}
-.hour {background:#0a1821;border:1px solid #263c48;border-radius:9px;padding:7px 3px;text-align:center;font-size:9px;color:var(--muted);cursor:pointer}
-.hour input {accent-color:var(--cyan);display:block;margin:0 auto 4px;width:16px;height:16px}
-.hour.checked {border-color:#368e8c;background:#123537;color:var(--cyan2)}
-.actions {display:flex;justify-content:flex-end;margin-top:12px}
-.reset {background:transparent;color:#91aab5;border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:11px;cursor:pointer}
-.footer {text-align:center;color:#78909c;font-size:11px;padding:22px 8px}
+:root{color-scheme:dark;--bg:#050914;--bg2:#081526;--panel:#0d1b2a;--panel2:#102337;--line:rgba(154,190,220,.16);--text:#f3f7ff;--muted:#9aadc2;--cyan:#42e4d5;--cyan2:#65f4ff;--violet:#8c6cff;--magenta:#ef64d5;--mint:#8af4ba;--gold:#f3d18b;--shadow:0 24px 70px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(ellipse at 12% 0%,rgba(31,92,119,.22),transparent 36%),radial-gradient(ellipse at 90% 12%,rgba(109,53,164,.20),transparent 34%),radial-gradient(ellipse at 50% 80%,rgba(14,92,100,.12),transparent 42%),var(--bg);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.23;background-image:radial-gradient(1px 1px at 11% 18%,#a7f9ff 99%,transparent),radial-gradient(1px 1px at 82% 13%,#c7a6ff 99%,transparent),radial-gradient(1px 1px at 67% 62%,#fff 99%,transparent),radial-gradient(1px 1px at 24% 78%,#67e8ff 99%,transparent),radial-gradient(1px 1px at 91% 83%,#d49aff 99%,transparent);background-size:260px 240px,310px 280px,370px 330px,420px 390px,510px 470px;z-index:-1}
+button,input{font:inherit}button{color:inherit}.app{width:min(100% - 28px,1040px);margin:0 auto;padding:22px 0 48px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:13px;min-width:0}.brandmark{width:54px;height:54px;flex:none;display:grid;place-items:center;border-radius:18px;position:relative;background:linear-gradient(145deg,rgba(72,238,222,.2),rgba(119,90,255,.16));border:1px solid rgba(107,239,234,.35);box-shadow:0 0 30px rgba(58,222,215,.16),inset 0 1px rgba(255,255,255,.18);transform:rotate(-8deg)}.brandmark svg{width:31px;height:31px;filter:drop-shadow(0 0 8px rgba(101,244,255,.65));transform:rotate(8deg)}.eyebrow{font-size:10px;letter-spacing:.24em;font-weight:850;color:var(--cyan);text-transform:uppercase}.brand h1{font-size:clamp(18px,3vw,23px);letter-spacing:.08em;margin:2px 0 0;font-weight:850}.top-meta{display:flex;align-items:center;gap:8px}.date-range{padding:9px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(10,22,39,.55);font-size:11px;color:var(--muted);white-space:nowrap}.iconbtn,.softbtn,.primarybtn{border:1px solid var(--line);background:rgba(15,29,49,.78);border-radius:12px;padding:9px 12px;cursor:pointer;transition:.22s ease}.iconbtn:hover,.softbtn:hover{border-color:rgba(101,244,255,.55);transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,213,211,.1)}.primarybtn{background:linear-gradient(110deg,#42e4d5,#7b8dff);color:#06121c;border:0;font-weight:800;box-shadow:0 8px 26px rgba(66,228,213,.18)}.primarybtn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+/* signature hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(131,173,218,.23);border-radius:28px;padding:22px 24px 20px;margin:0 0 17px;background:linear-gradient(125deg,rgba(15,36,55,.96),rgba(16,25,55,.92) 56%,rgba(34,20,61,.88));box-shadow:var(--shadow),inset 0 1px rgba(255,255,255,.08)}.hero:before{content:"";position:absolute;inset:-35% 38% 15% -15%;background:radial-gradient(ellipse,rgba(49,224,215,.19),transparent 66%);filter:blur(14px);z-index:-1}.hero:after{content:"";position:absolute;inset:20% -15% -55% 45%;background:radial-gradient(ellipse,rgba(169,89,255,.24),transparent 65%);filter:blur(20px);z-index:-1}.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 210px;align-items:center;gap:12px}.hero-kicker{color:var(--cyan);font-size:10px;letter-spacing:.22em;font-weight:850}.hero h2{font-size:clamp(22px,4vw,31px);letter-spacing:-.035em;margin:7px 0 5px}.hero-sub{margin:0;color:#aebdd0;font-size:13px}.hero-stats{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.metric{min-width:120px;flex:1;padding:10px 12px;border:1px solid rgba(163,192,223,.14);border-radius:14px;background:rgba(5,15,30,.32);backdrop-filter:blur(12px)}.metric b{display:block;font-size:18px;letter-spacing:-.03em}.metric span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.orbital{height:176px;position:relative;display:grid;place-items:center;perspective:700px}.orbital .ring{position:absolute;width:164px;height:70px;border:1px solid rgba(92,237,232,.6);border-radius:50%;transform:rotate(-28deg);box-shadow:0 0 13px rgba(66,228,213,.24),inset 0 0 12px rgba(66,228,213,.08)}.orbital .ring.r2{width:190px;height:86px;border-color:rgba(178,106,255,.55);transform:rotate(34deg);box-shadow:0 0 16px rgba(173,99,255,.2)}.orbital .ring.r3{width:143px;height:105px;border-color:rgba(239,100,213,.34);transform:rotate(75deg)}.core{width:104px;height:104px;border-radius:50%;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 32% 25%,#b3fff4 0,#54d9d8 12%,#236d92 38%,#26245f 69%,#0c122c 100%);box-shadow:0 0 24px rgba(66,228,213,.4),0 0 65px rgba(129,93,255,.26),inset -12px -14px 24px rgba(0,0,0,.42),inset 4px 5px 12px rgba(255,255,255,.35);transform:rotateX(14deg);animation:float 6s ease-in-out infinite}.core:before{content:"";position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(255,255,255,.28)}.core strong{font-size:27px;text-shadow:0 2px 12px rgba(0,0,0,.4)}.spark{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--magenta);box-shadow:0 0 12px 4px rgba(239,100,213,.55);top:27px;right:29px}.spark.s2{background:var(--cyan2);box-shadow:0 0 12px 4px rgba(101,244,255,.5);left:18px;bottom:33px;top:auto;right:auto;width:5px;height:5px}@keyframes float{0%,100%{transform:translateY(0) rotateX(14deg)}50%{transform:translateY(-7px) rotateX(18deg)}}
+.hero-progress{height:7px;border-radius:99px;background:rgba(160,187,214,.14);overflow:hidden;margin-top:17px}.hero-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));border-radius:99px;box-shadow:0 0 14px rgba(101,244,255,.45);transition:width .35s}
+.datepanel{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,rgba(12,27,44,.9),rgba(10,19,36,.78));padding:13px 14px;margin-bottom:18px;box-shadow:0 14px 35px rgba(0,0,0,.16)}.date-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}.date-controls-left,.date-controls-right{display:flex;align-items:center;gap:7px}.date-controls .softbtn{font-size:11px;padding:8px 10px}.date-picker{position:relative;overflow:hidden}.date-picker input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.date-picker span{display:flex;align-items:center;gap:6px}.weekdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}.day{min-width:0;border:1px solid rgba(146,178,208,.15);background:rgba(7,19,34,.7);border-radius:13px;padding:9px 3px 8px;text-align:center;cursor:pointer;transition:.2s ease}.day:hover{border-color:rgba(101,244,255,.5);transform:translateY(-2px)}.day strong{display:block;font-size:10px;color:#aebbd0;letter-spacing:.08em}.day b{display:block;font-size:17px;margin:3px 0 1px}.day small{display:block;font-size:9px;color:#8296ad}.day .dayline{height:3px;border-radius:9px;background:rgba(160,187,214,.17);margin:8px 4px 0;overflow:hidden}.day .dayline i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:9px}.day.active{border-color:rgba(101,244,255,.85);background:linear-gradient(150deg,rgba(30,82,91,.78),rgba(41,35,84,.68));box-shadow:0 0 0 1px rgba(101,244,255,.12),0 0 24px rgba(66,228,213,.12)}.day.active strong,.day.active b{color:#9efff4}.day.today:not(.active){border-color:rgba(139,244,186,.4)}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:23px 2px 10px}.sectionhead h3{font-size:13px;letter-spacing:.14em;margin:0}.sectionhead span{font-size:11px;color:var(--muted)}.group{border:1px solid rgba(151,184,213,.17);border-radius:19px;margin:10px 0;background:linear-gradient(145deg,rgba(16,34,49,.94),rgba(10,23,37,.92));overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.14);transition:border-color .2s,transform .2s}.group:hover{border-color:rgba(101,244,255,.27)}.grouphead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(151,184,213,.12);background:linear-gradient(90deg,rgba(77,214,214,.045),transparent 65%)}.grouphead h4{font-size:13px;letter-spacing:.055em;margin:0}.grouphead small{color:var(--muted);font-size:10px;text-align:right}.tasklist{padding:3px 14px 6px}.task{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:52px;padding:8px 3px;border-bottom:1px solid rgba(151,184,213,.11);cursor:pointer;transition:background .16s,border-color .16s}.task:hover{background:rgba(101,244,255,.035)}.task:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:9px}.task:last-child{border-bottom:0}.task-check{appearance:none;width:21px;height:21px;margin:0;border:1.5px solid #668093;border-radius:7px;background:#091725;cursor:pointer;position:relative;transition:.18s}.task-check:checked{border-color:var(--cyan);background:linear-gradient(145deg,var(--cyan2),#31cbbd);box-shadow:0 0 13px rgba(66,228,213,.22)}.task-check:checked:after{content:"✓";position:absolute;inset:-1px;display:grid;place-items:center;color:#06202a;font-weight:950;font-size:15px}.task-label{font-size:14px;line-height:1.35;min-width:0}.task.done .task-label{color:#8ea4b0;text-decoration:line-through;text-decoration-color:rgba(142,164,176,.7)}.task-meta{display:flex;align-items:center;gap:6px}.count-pill{border:1px solid rgba(140,108,255,.28);background:rgba(119,91,231,.1);color:#c8baff;border-radius:99px;padding:5px 7px;font-size:9px;white-space:nowrap;font-weight:750}.count-pill b{color:#f0eaff;font-size:10px}.history-btn{border:1px solid rgba(151,184,213,.16);background:rgba(5,14,27,.45);color:#91a6ba;border-radius:8px;padding:5px 7px;font-size:9px;cursor:pointer}.history-btn[aria-expanded=true]{border-color:rgba(101,244,255,.5);color:var(--cyan2)}.heatmap{display:none;grid-column:1/4;padding:9px 2px 12px}.heatmap.open{display:block}.heatmap-label{font-size:10px;color:var(--muted);margin-bottom:8px}.heatdots.month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.month-cell{min-width:0;aspect-ratio:1;border-radius:8px;border:1px solid rgba(146,169,193,.12);background:rgba(146,169,193,.09);color:#a5b3c4;font-size:10px;cursor:pointer}.month-cell.on{background:linear-gradient(145deg,var(--cyan),#8275ff);color:#06121c;border-color:rgba(134,235,255,.45);font-weight:850;box-shadow:0 0 8px rgba(66,228,213,.16)}.month-cell.current{outline:2px solid var(--gold);outline-offset:1px}.month-cell.blank{visibility:hidden;pointer-events:none}.month-cell:hover{border-color:var(--cyan2);transform:translateY(-1px)}.heatmap.open{display:block}.heatmap-label{font-size:9px;color:var(--muted);margin-bottom:6px}.heatdots{display:grid;grid-template-columns:repeat(15,1fr);gap:4px}.heatdots i{aspect-ratio:1;border-radius:3px;background:rgba(146,169,193,.14);border:1px solid rgba(146,169,193,.07)}.heatdots i.on{background:linear-gradient(145deg,var(--cyan),#8275ff);border-color:rgba(134,235,255,.28);box-shadow:0 0 7px rgba(66,228,213,.22)}.heatdots i.current{outline:1px solid var(--gold);outline-offset:1px}
+.info{padding:10px 15px 2px;color:var(--muted);font-size:11px}.hourgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;padding:12px 14px 15px}.hour{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:78px;padding:8px 3px;text-align:center;border:1px solid rgba(151,184,213,.17);border-radius:12px;background:rgba(5,17,31,.6);color:#9eb0c1;cursor:pointer;transition:.18s}.hour input{appearance:none;width:18px;height:18px;margin:0;border:1px solid #728b9a;border-radius:4px;background:#0a1724;position:relative}.hour input:checked{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 10px rgba(66,228,213,.25)}.hour input:checked:after{content:"✓";position:absolute;inset:-1px;display:grid;place-items:center;color:#08202a;font-weight:900}.hour span{font-size:9px;line-height:1.3}.hour.checked{background:linear-gradient(145deg,rgba(25,91,91,.42),rgba(26,40,75,.5));border-color:rgba(66,228,213,.5);color:#a3fff2}.goal-summary{display:flex;justify-content:space-between;align-items:center;padding:0 15px 10px;color:var(--muted);font-size:10px}.goal-summary strong{color:var(--cyan2);font-size:12px}.actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:17px 2px}.reset{border:1px solid rgba(151,184,213,.22);background:rgba(10,22,38,.55);color:#a8bbcb;border-radius:11px;padding:9px 12px;font-size:11px;cursor:pointer}.footer{text-align:center;color:#71869a;font-size:10px;padding:20px 8px 8px}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:rgba(10,27,43,.96);border:1px solid rgba(101,244,255,.35);color:#dffefa;border-radius:999px;padding:9px 15px;font-size:11px;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:.25s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}.empty-note{padding:16px;color:var(--muted);font-size:12px;text-align:center}
+@media(min-width:760px){.routine-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.routine-grid .group{align-self:start}.non-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.hero{padding:25px 30px}.orbital{height:195px}}
 
-@media(max-width:520px) {
-  .wrap {padding:13px 10px 32px}
-  .brand h1 {font-size:15px}
-  .datepill {font-size:9px;padding:7px}
-  .hero {padding:15px}
-  .hero h2 {font-size:20px}
-  .days {gap:4px}
-  .day {border-radius:9px}
-  .day strong {font-size:10px}
-  .day small {font-size:9px}
-  .stats {gap:5px}
-  .stat {padding:7px}
-  .stat b {font-size:14px}
-  .grid2 {grid-template-columns:1fr}
-}
-</style>
+
+/* Living desert ritual — open landscape, no enclosure */
+.growth-section{position:relative;margin:24px 0 18px;border:1px solid rgba(224,190,133,.24);border-radius:25px;overflow:hidden;background:linear-gradient(180deg,#14283a 0%,#172438 42%,#3a2a31 100%);box-shadow:0 24px 60px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.1)}
+.growth-head{position:relative;z-index:2;padding:17px 18px 0;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.growth-kicker{font-size:9px;letter-spacing:.22em;color:#f3d18b;font-weight:900}
+.growth-head h3{margin:4px 0 3px;font-size:17px;letter-spacing:.03em}
+.growth-head p{margin:0;color:#c3c4c7;font-size:11px;max-width:420px}
+.growth-count{flex:none;text-align:right;border:1px solid rgba(244,216,166,.22);background:rgba(7,15,27,.34);padding:8px 11px;border-radius:13px}
+.growth-count b{display:block;color:#ffe1a5;font-size:20px;line-height:1.1}
+.growth-count span{font-size:9px;color:#c7bca8}
+.desert-scene{position:relative;height:310px;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 52% 45%,rgba(244,195,120,.18),transparent 42%),linear-gradient(180deg,#18344a 0%,#263449 58%,#8a5d4b 100%)}
+.desert-scene:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,207,145,.08),transparent 48%),radial-gradient(ellipse at 80% 20%,rgba(245,192,130,.12),transparent 30%);pointer-events:none}
+.desert-sun{position:absolute;top:27px;left:50%;width:70px;height:70px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff4d8,#efc17f 54%,#c98a60 100%);filter:drop-shadow(0 0 25px rgba(247,190,121,.3));opacity:.88}
+.dune{position:absolute;left:-10%;width:120%;height:130px;bottom:-42px;border-radius:50% 50% 0 0/35% 35% 0 0;transform:rotate(-3deg)}
+.dune.back{bottom:13px;background:linear-gradient(180deg,#a9785c,#68464a 75%);opacity:.55;clip-path:ellipse(68% 45% at 50% 100%)}
+.dune.mid{bottom:-18px;background:linear-gradient(180deg,#c18a61,#8b594b 70%);opacity:.88;transform:rotate(4deg);clip-path:ellipse(74% 50% at 52% 100%)}
+.dune.front{bottom:-55px;background:repeating-linear-gradient(174deg,rgba(255,220,165,.07) 0 2px,transparent 2px 13px),linear-gradient(180deg,#d09a68,#875843 72%);clip-path:ellipse(78% 53% at 48% 100%);box-shadow:inset 0 10px 25px rgba(255,222,168,.12)}
+.tree-base{position:absolute;z-index:3;bottom:29px;left:50%;width:150px;height:20px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,rgba(46,32,26,.52),transparent 70%)}
+.tree-wrap{position:absolute;z-index:5;left:50%;bottom:30px;width:min(53%,290px);height:240px;transform:translateX(-50%);display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.tree-svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 8px 7px rgba(18,23,19,.34))}
+.tree-svg .new-growth{transform-box:fill-box;transform-origin:50% 100%;animation:leaf-unfurl .65s cubic-bezier(.2,.8,.25,1) both}
+.tree-svg .new-branch{stroke-dasharray:1;stroke-dashoffset:0;animation:branch-grow .8s ease-out both}
+@keyframes leaf-unfurl{0%{opacity:0;transform:scale(.08) rotate(-18deg)}75%{opacity:1;transform:scale(1.08) rotate(3deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes branch-grow{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.soil-wet{position:absolute;z-index:4;left:50%;bottom:31px;width:0;height:9px;transform:translateX(-50%);border-radius:50%;background:rgba(43,75,59,.55);filter:blur(4px);opacity:0}
+.growth-section.impact .soil-wet{animation:soil-moisten 1.1s ease-out forwards}
+@keyframes soil-moisten{0%{width:0;opacity:0}35%{width:76px;opacity:.9}100%{width:94px;opacity:.35}}
+.vessel-area{position:absolute;z-index:9;right:8%;bottom:28px;width:112px;display:flex;flex-direction:column;align-items:center;gap:7px}
+.water-vessel{position:relative;width:78px;height:93px;padding:0;border:0;background:transparent;cursor:pointer;filter:drop-shadow(0 13px 10px rgba(0,0,0,.38));transform-origin:72% 82%;transition:filter .35s;touch-action:manipulation}
+.water-vessel:before{content:"";position:absolute;left:12px;right:12px;top:3px;height:12px;border:4px solid rgba(216,246,255,.72);border-bottom:0;border-radius:50% 50% 0 0;z-index:2}
+.vessel-body{position:absolute;inset:11px 5px 2px;border:2px solid rgba(220,247,255,.76);border-radius:13px 13px 24px 24px;background:linear-gradient(105deg,rgba(255,255,255,.5),rgba(151,211,233,.13) 28%,rgba(46,118,154,.18) 68%,rgba(255,255,255,.32));box-shadow:inset 5px 0 9px rgba(255,255,255,.28),inset -7px 0 12px rgba(5,23,41,.3),0 0 15px rgba(117,214,244,.16);overflow:hidden}
+.vessel-body:after{content:"";position:absolute;top:0;left:8px;width:8px;height:65%;border-radius:9px;background:linear-gradient(180deg,rgba(255,255,255,.65),transparent);filter:blur(1px)}
+.vessel-water{position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(180deg,rgba(111,224,255,.68),rgba(36,142,191,.78));border-radius:35% 35% 18px 18px/9% 9% 15px 15px;box-shadow:inset 0 5px 10px rgba(227,250,255,.42),0 -2px 12px rgba(97,214,255,.25);animation:water-slosh 3.1s ease-in-out infinite}
+.vessel-water:before{content:"";position:absolute;left:-15%;top:-5px;width:130%;height:13px;border-radius:50%;background:rgba(193,246,255,.75);filter:blur(1px);animation:water-wave 2.2s ease-in-out infinite alternate}
+@keyframes water-slosh{0%,100%{transform:skewX(0) scaleY(1)}50%{transform:skewX(-5deg) scaleY(.96)}}
+@keyframes water-wave{to{transform:translateX(8px) rotate(3deg)}}
+.vessel-handle{position:absolute;right:-4px;top:28px;width:24px;height:39px;border:5px solid rgba(211,242,255,.72);border-left:0;border-radius:0 17px 17px 0;z-index:-1}
+.vessel-neck{position:absolute;top:0;left:26px;width:27px;height:15px;border:2px solid rgba(222,248,255,.8);border-bottom:0;border-radius:8px 8px 0 0;background:rgba(110,174,202,.25);z-index:3}
+.water-vessel:disabled{cursor:default;filter:grayscale(.25) drop-shadow(0 9px 8px rgba(0,0,0,.3));opacity:.76}
+.water-vessel:focus-visible{outline:2px solid #a9f2ff;outline-offset:5px;border-radius:16px}
+.vessel-caption{text-align:center;color:#f4dfb9;font-size:9px;line-height:1.35}
+.vessel-caption strong{display:block;font-size:10px;color:#fff1d1}
+.water-path{position:absolute;inset:0;width:100%;height:100%;z-index:10;pointer-events:none;overflow:visible}
+.pour-drop{fill:url(#singleDropGradient);stroke:#e7fbff;stroke-width:1.5;filter:drop-shadow(0 2px 5px rgba(74,205,255,.75));opacity:0}
+.pour-splash{fill:none;stroke:#b9f3ff;stroke-width:2.4;stroke-linecap:round;opacity:0}
+.growth-section.pouring .water-vessel{animation:vessel-lift-pour 2.8s cubic-bezier(.35,.05,.2,1) both;z-index:9}
+.growth-section.pouring .vessel-water{animation:water-pour-level 2.8s ease-in-out both}
+.growth-section.pouring .pour-drop{opacity:1}
+.growth-section.impact .pour-splash{animation:splash-pop .65s ease-out both;transform-box:fill-box;transform-origin:center}
+.growth-section.pouring .tree-svg{animation:tree-receive .65s ease-out 2.1s}
+@keyframes drop-visibility{0%{opacity:0}12%,82%{opacity:1}100%{opacity:0}}
+@keyframes splash-pop{0%{opacity:0;transform:scale(.2)}35%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.45)}}
+@keyframes vessel-lift-pour{0%,12%{transform:translate(0,0) rotate(0)}34%{transform:translate(calc(-1 * clamp(90px,22vw,155px)),-24px) rotate(-12deg)}52%,67%{transform:translate(calc(-1 * clamp(90px,22vw,155px)),-23px) rotate(-38deg)}86%{transform:translate(-8px,-7px) rotate(-9deg)}100%{transform:translate(0,0) rotate(0)}}
+@keyframes water-pour-level{0%,30%{height:62%}58%,75%{height:51%}100%{height:56%}}
+@keyframes tree-receive{0%,100%{filter:drop-shadow(0 8px 7px rgba(18,23,19,.34))}45%{filter:drop-shadow(0 0 14px rgba(134,237,168,.65))}}
+.growth-section.impact .pour-splash{opacity:1}
+.growth-section.watered .vessel-water{height:56%}
+@media(max-width:560px){.growth-head{padding:14px 13px 0}.growth-head h3{font-size:14px}.growth-head p{font-size:9px}.growth-count{padding:7px 9px}.growth-count b{font-size:17px}.desert-scene{height:275px}.tree-wrap{height:205px;width:59%;bottom:29px}.vessel-area{right:4%;bottom:24px;width:94px}.water-vessel{transform:scale(.87);transform-origin:bottom center}.vessel-caption{font-size:8px}.water-path{height:100%}}
+@media(prefers-reduced-motion:reduce){.growth-section.pouring *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.growth-bottom{position:relative;z-index:6;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px 15px;background:linear-gradient(90deg,rgba(8,18,30,.55),rgba(18,23,37,.72));border-top:1px solid rgba(240,214,171,.14)}.growth-message{font-size:10px;color:#d2c6b5;line-height:1.45}.growth-message b{color:#ffe0a7}.growth-progress{flex:none;width:min(38%,150px)}.growth-progress-top{display:flex;justify-content:space-between;color:#e6d5ba;font-size:9px;margin-bottom:5px}.growth-track{height:6px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}.growth-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8cd6a1,#d6e99a,#f4d18b);box-shadow:0 0 10px rgba(183,231,150,.4);transition:width .6s ease}
+@media(max-width:560px){.growth-head{padding:14px 13px 0}.growth-head h3{font-size:14px}.growth-head p{font-size:9px}.growth-count{padding:7px 9px}.growth-count b{font-size:17px}.desert-scene{height:265px}.tree-wrap{height:205px;width:57%;bottom:33px}.vessel-area{right:5%;bottom:24px;width:94px}.water-vessel{transform:scale(.87);transform-origin:bottom center}.vessel-caption{font-size:8px}.growth-bottom{padding:10px 12px}.growth-progress{width:34%}.water-path{left:35%;bottom:45px;width:43%;height:125px}}
+
+@media(max-width:560px){.app{width:calc(100% - 20px);padding:13px 0 34px}.topbar{gap:8px}.brandmark{width:46px;height:46px;border-radius:15px}.eyebrow{font-size:8px;letter-spacing:.18em}.brand h1{font-size:15px}.date-range{font-size:9px;padding:7px 8px}.top-meta .iconbtn{display:none}.hero{padding:16px 15px 15px;border-radius:23px}.hero-grid{grid-template-columns:minmax(0,1fr) 116px;gap:2px}.hero h2{font-size:21px}.hero-sub{font-size:11px}.orbital{height:126px;transform:scale(.78);transform-origin:center}.metric{min-width:0;padding:8px 9px}.metric b{font-size:15px}.metric span{font-size:9px}.hero-stats{gap:6px;margin-top:13px}.hero-progress{margin-top:13px}.datepanel{padding:10px 9px;border-radius:17px}.date-controls .softbtn{padding:7px 8px;font-size:10px}.weekdays{gap:4px}.day{padding:8px 1px 7px;border-radius:10px}.day strong{font-size:8px}.day b{font-size:15px}.day small{font-size:8px}.day .dayline{margin:7px 3px 0}.sectionhead{margin-top:20px}.sectionhead h3{font-size:11px}.task{grid-template-columns:23px minmax(0,1fr) auto;gap:8px;min-height:49px}.task-label{font-size:13px}.count-pill{font-size:8px;padding:4px 6px}.history-btn{font-size:8px;padding:4px 5px}.task-meta{gap:4px}.hourgrid{gap:5px;padding:10px}.hour{min-height:70px}.heatdots{gap:3px}}
+@media(max-width:370px){.hero-grid{grid-template-columns:minmax(0,1fr) 90px}.orbital{transform:scale(.64)}.task{grid-template-columns:22px minmax(0,1fr) auto}.count-pill{max-width:72px;overflow:hidden;text-overflow:ellipsis}.date-controls-right .softbtn{padding:7px 6px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+.tree-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px 13px;border-top:1px solid rgba(240,214,171,.12);background:rgba(8,18,30,.32)}
+.tree-controls span{font-size:9px;color:#d8c9b2;letter-spacing:.04em}
+.tree-reset-btn{border:1px solid rgba(244,209,139,.48);background:rgba(244,209,139,.1);color:#ffe4b2;border-radius:999px;padding:8px 12px;font-size:9px;font-weight:900;letter-spacing:.08em;cursor:pointer}
+.tree-reset-btn:active{transform:scale(.97)}
+.tree-settings{position:absolute;z-index:30;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(5,12,20,.82);backdrop-filter:blur(7px)}
+.tree-settings[hidden]{display:none}
+.tree-settings-card{width:min(100%,390px);padding:20px;border:1px solid rgba(244,209,139,.4);border-radius:20px;background:linear-gradient(145deg,#203247,#101c2b);box-shadow:0 24px 70px rgba(0,0,0,.55);color:#fff}
+.tree-settings-kicker{font-size:9px;letter-spacing:.2em;color:#f3d18b;font-weight:900}
+.tree-settings-card h4{font-size:16px;margin:8px 0}
+.tree-settings-card p{font-size:11px;line-height:1.5;color:#c5c6ca;margin:0 0 14px}
+.tree-settings-card label{display:block;font-size:10px;color:#f4dfb9;margin-bottom:6px}
+.tree-settings-card input{width:100%;padding:11px 12px;border:1px solid rgba(244,209,139,.35);border-radius:10px;background:#0c1724;color:#fff;font-size:16px;outline:none}
+.tree-settings-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
+.tree-settings-actions button{padding:10px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:#172438;color:#eee;font-size:10px;font-weight:900;cursor:pointer}
+.tree-settings-actions #confirmTreeReset{background:linear-gradient(135deg,#f5d99d,#d9ad69);color:#281d14;border-color:#f5d99d}
+.pour-drop{position:absolute;z-index:12;width:12px;height:18px;border-radius:70% 30% 65% 65%;background:linear-gradient(135deg,#fff 0%,#a9f0ff 42%,#35aee0 100%);border:1px solid rgba(231,251,255,.9);filter:drop-shadow(0 2px 5px rgba(74,205,255,.75));opacity:0;pointer-events:none;left:0;top:0}
+@media(max-width:560px){.tree-controls{padding:9px 12px}.tree-reset-btn{padding:8px 9px;font-size:8px}.tree-settings-card{padding:16px}}
+
+.growth-section.pouring .water-vessel{transform:rotate(-27deg) translate(-12px,-9px)}.pour-drop{position:absolute;z-index:8;width:12px;height:18px;border-radius:70% 30% 65% 65%;background:linear-gradient(135deg,#fff,#72d9ef 65%,#2696c2);opacity:0;filter:drop-shadow(0 2px 4px #0008)}
+.growth-section.pouring .water-vessel{animation:none!important;transform:rotate(-27deg) translate(-12px,-9px)!important}.growth-section.pouring .vessel-water{animation:none!important}</style>
 </head>
-
 <body>
-<main class="wrap">
-
-<header class="top">
-  <div class="brand">
-    <div class="logo">✓</div>
-    <div>
-      <div class="eyebrow">7-DAY CONSISTENCY SPRINT</div>
-      <h1>MY DAILY PROGRESS</h1>
-    </div>
-  </div>
-  <div class="datepill">06 NOV — 12 NOV 2026</div>
+<main class="app">
+<header class="topbar">
+  <div class="brand"><div class="brandmark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3.5 36.5 20 20 36.5 3.5 20 20 3.5Z" stroke="#76FFF0" stroke-width="2.3"/><path d="m11.5 20.5 5.3 5.1 11.8-12" stroke="#E8FFFC" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="3" fill="#F3D18B"/></svg></div><div><div class="eyebrow">LIVING CONSISTENCY ENGINE</div><h1>MY DAILY PROGRESS</h1></div></div>
+  <div class="top-meta"><div class="date-range" id="weekRange"></div><button class="iconbtn" id="todayTop" aria-label="Go to today">Today ↗</button></div>
 </header>
+<section class="hero" aria-label="Selected day progress">
+  <div class="hero-grid"><div><div class="hero-kicker" id="heroKicker">SELECTED DAY / DAILY SIGNAL</div><h2 id="dateTitle">Loading date…</h2><p class="hero-sub" id="dailyCount">Your daily consistency, made visible.</p>
+    <div class="hero-stats"><div class="metric"><b id="doneCount">0 / 0</b><span>Tasks completed today</span></div><div class="metric"><b id="lifetimeCount">0</b><span>Completed activity-days · all time</span></div><div class="metric"><b id="activeDays">0</b><span>Dates with progress</span></div></div>
+  </div><div class="orbital" aria-hidden="true"><div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div><div class="core"><strong id="percent">0%</strong></div><i class="spark"></i><i class="spark s2"></i></div></div>
+  <div class="hero-progress"><span id="mainBar"></span></div>
+</section>
+<section class="datepanel" aria-label="Date navigation">
+  <div class="date-controls"><div class="date-controls-left"><button class="softbtn" id="prevDay">← Day</button><button class="softbtn" id="todayBtn">Today</button><button class="softbtn" id="nextDay">Day →</button></div><div class="date-controls-right"><label class="softbtn date-picker"><span>▦ Calendar</span><input id="datePicker" type="date" aria-label="Choose a date"></label></div></div>
+  <nav class="weekdays" id="days" aria-label="Choose a date in this week"></nav>
+</section>
+<div class="sectionhead"><h3>YOUR DAILY ROUTINE</h3><span id="routineProgress">0% complete</span></div><div class="routine-grid" id="routine"></div>
+<div class="sectionhead"><h3>DAILY NON-NEGOTIABLES</h3><span id="nonProgress">0% complete</span></div><div class="non-grid" id="nonneg"></div>
 
-<section class="hero">
-  <div class="herohead">
-    <div>
-      <div class="eyebrow" id="todayLabel">TODAY'S FOCUS</div>
-      <h2 id="dateTitle"></h2>
-      <p id="dailyCount"></p>
-    </div>
-    <div class="percent" id="percent">0%</div>
+<section class="growth-section" id="growthSection" aria-labelledby="growthTitle">
+  <div class="growth-head"><div><div class="growth-kicker">A SMALL DAILY RITUAL</div><h3 id="growthTitle">GROW YOUR LITTLE DESERT TREE</h3><p>One gentle watering each day. Give it time, and watch it come alive.</p></div><div class="growth-count"><b id="treeDays">0/30</b><span>watering days</span></div></div>
+  <div class="desert-scene" id="desertScene" role="img" aria-label="An open desert with one growing seedling and one glass watering vessel">
+    <div class="desert-sun"></div><div class="dune back"></div><div class="dune mid"></div><div class="dune front"></div>
+    <div class="tree-base"></div><div class="soil-wet"></div><div class="tree-wrap" id="treeWrap"><svg class="tree-svg" id="treeSvg" viewBox="0 0 360 300" aria-hidden="true"></svg></div>
+    <div class="pour-drop" id="pourDrop" aria-hidden="true"></div>
+    <div class="vessel-area"><button class="water-vessel" id="waterTreeBtn" type="button" aria-label="Water your tree once today"><span class="vessel-neck"></span><span class="vessel-body"><span class="vessel-water"></span></span><span class="vessel-handle"></span></button><div class="vessel-caption"><strong id="vesselAction">TAP TO WATER</strong><span id="vesselDate">Once each day</span></div></div>
   </div>
-  <div class="bar"><span id="mainBar"></span></div>
-  <div class="stats">
-    <div class="stat"><b id="doneCount">0 / 0</b><small>Tasks completed</small></div>
-    <div class="stat"><b id="stepCount">0 / 5,000</b><small>Step target</small></div>
-    <div class="stat"><b id="waterCount">0 / 10</b><small>Hourly water check-ins</small></div>
+  <div class="growth-bottom"><div class="growth-message" id="treeMessage"><b>Your tree is waiting.</b><br>Each watering day adds a little growth. Miss a day? Your progress stays safe.</div><div class="growth-progress"><div class="growth-progress-top"><span>GROWTH</span><b id="treePercent">0%</b></div><div class="growth-track"><i id="treeBar" style="width:0%"></i></div></div></div>
+  <div class="tree-controls"><span id="treeGoalLabel">Goal: 30 watering days</span><button type="button" class="tree-reset-btn" id="openTreeSettings">RESET / START AGAIN</button></div>
+  <div class="tree-settings" id="treeSettings" hidden>
+    <div class="tree-settings-card">
+      <div class="tree-settings-kicker">A FRESH GROWTH JOURNEY</div>
+      <h4>How many days should your tree take to grow?</h4>
+      <p>Water once per calendar day. Your tree will be fully grown when you complete the number of watering days you choose. Resetting starts a fresh journey.</p>
+      <label for="treeTargetInput">Days to grow the complete tree</label>
+      <input id="treeTargetInput" type="number" min="1" max="3650" step="1" value="30" inputmode="numeric">
+      <div class="tree-settings-actions"><button type="button" id="cancelTreeSettings">CANCEL</button><button type="button" id="confirmTreeReset">RESET & START</button></div>
+    </div>
   </div>
 </section>
 
-<nav class="days" id="days"></nav>
-<div class="notice" id="outsideNotice">
-  Your 7-day tracking period has ended. You can still review and edit each day's saved progress.
-</div>
-
-<div class="section-title">
-  <h2>YOUR DAILY ROUTINE</h2>
-  <span id="routineProgress">0% complete</span>
-</div>
-<div id="routine"></div>
-
-<div class="section-title">
-  <h2>DAILY NON-NEGOTIABLES</h2>
-  <span id="nonProgress">0% complete</span>
-</div>
-<div id="nonneg"></div>
-
-<div class="actions">
-  <button class="reset" id="resetDay">Reset selected day</button>
-</div>
-
-<div class="footer">
-  Small actions. Daily consistency. One day at a time.<br>
-  Progress is saved automatically on this device.
-</div>
-
+<div class="actions"><span id="savedStatus" style="font-size:10px;color:var(--muted)">Saved automatically on this device</span><button class="reset" id="resetDay">Reset selected day</button></div>
+<footer class="footer">Small actions. Visible consistency. One day at a time.<br>Your history is stored locally on this device.</footer>
 </main>
-
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const dates=[
-["2026-11-06","Friday","FRI","06"],
-["2026-11-07","Saturday","SAT","07"],
-["2026-11-08","Sunday","SUN","08"],
-["2026-11-09","Monday","MON","09"],
-["2026-11-10","Tuesday","TUE","10"],
-["2026-11-11","Wednesday","WED","11"],
-["2026-11-12","Thursday","THU","12"]
-];
-
+'use strict';
+// Compatibility: preserve the original key and date -> task-key -> boolean data shape.
+const STORAGE_KEY='myDailyProgress7Day_v1';
 const groups=[
-{id:"wake",title:"SWEET WAKE UP",items:["Mouth wash","Tongue clean","Brush","Amla aloe vera juice","Dry fruits – soaked","Morning videos","Protein breakfast"]},
-{id:"body",title:"BATH · BODY CARE",items:["Body soap","Body wash – exfoliating","Shower gel – fragrance","Face cleanser"]},
-{id:"hair",title:"BATH · HAIR CARE",items:["Shampoo","Conditioner"],days:[0,5],note:"Wednesday & Friday only"},
-{id:"after",title:"AFTER BATH",items:["Underarm roll-on","Deo cream","Toner → Serum → Moisturizer → Sunscreen","Mouth spray","Oud spray"]},
-{id:"noon",title:"SWEET NOON HUSTLE",items:["Protein shake","WORKOUT","Protein lunch"]},
-{id:"eve",title:"EVE CRAVINGS",items:["Roasted chana – 50 g"]},
-{id:"night",title:"CALM NIGHT",items:["Night videos","Dinner – 100 g paneer & soup","Soak dry fruits"]}
-];
+{id:'wake',title:'SWEET WAKE UP',items:['Mouth wash','Tongue clean','Brush','Amla aloe vera juice','Dry fruits – soaked','Morning videos','Protein breakfast']},
+{id:'body',title:'BATH · BODY CARE',items:['Body soap','Body wash – exfoliating','Shower gel – fragrance','Face cleanser']},
+{id:'hair',title:'BATH · HAIR CARE',items:['Shampoo','Conditioner'],weekdays:[3,5],note:'Wednesday & Friday only'},
+{id:'after',title:'AFTER BATH',items:['Underarm roll-on','Deo cream','Toner → Serum → Moisturizer → Sunscreen','Mouth spray','Oud spray']},
+{id:'noon',title:'SWEET NOON HUSTLE',items:['Protein shake','WORKOUT','Protein lunch']},
+{id:'eve',title:'EVE CRAVINGS',items:['Roasted chana – 50 g']},
+{id:'night',title:'CALM NIGHT',items:['Night videos','Dinner – 100 g paneer & soup','Soak dry fruits']}];
+const supplements=['Vitamin D','B12','Omega 3','Zinc','Magnesium'];
+const workoutByDay={5:'Back & Biceps',6:'Legs & Abs',0:null,1:'CST',2:'Back & Biceps',3:'Legs & Abs',4:'CST'}; // Sun=0 ... Sat=6
+const $=id=>document.getElementById(id);
+const today=new Date();today.setHours(12,0,0,0);let selected=new Date(today);
+let data={},storageAvailable=true,storageRaw=null;
+try{storageRaw=localStorage.getItem(STORAGE_KEY);if(storageRaw){const parsed=JSON.parse(storageRaw);if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))data=parsed;else throw new Error('Stored data is not an object');}else data={};}catch(err){storageAvailable=false;console.error('Could not safely read saved progress:',err);}
+// Preserve a recoverable copy of the original data before the first write.
+if(storageAvailable&&storageRaw&&!localStorage.getItem(STORAGE_KEY+'.backup')){try{localStorage.setItem(STORAGE_KEY+'.backup',storageRaw)}catch(err){console.warn('Backup could not be created:',err)}}
 
-const supplements=["Vitamin D","B12","Omega 3","Zinc","Magnesium"];
-const workouts=["Back & Biceps","Legs & Abs","Rest day","CST","Back & Biceps","Legs & Abs","CST"];
-
-const key="myDailyProgress7Day_v1";
-let data=JSON.parse(localStorage.getItem(key)||"{}");
-
-const now=new Date();
-const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
-
-let selected=dates.findIndex(d=>d[0]===today);
-if(selected<0)selected=today<dates[0][0]?0:6;
-
-function ds(i){return data[dates[i][0]]||(data[dates[i][0]]={})}
-function save(){localStorage.setItem(key,JSON.stringify(data))}
-function id(g,t){return g+"__"+t}
-function yes(i,k){return !!ds(i)[k]}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-
-function list(i){
-  let a=[];
-  groups.forEach(g=>{
-    if(g.days&&!g.days.includes(i))return;
-    g.items.forEach(t=>{
-      if(t==="WORKOUT"){
-        if(i!==2)a.push({g:g.id,t:workouts[i]});
-      } else a.push({g:g.id,t});
-    });
-  });
-  supplements.forEach(t=>a.push({g:"supplements",t}));
-  a.push({g:"upskill",t:"Upskill – 15 min"},{g:"social",t:"Post daily progress on Instagram"});
-  if(i===1)a.push({g:"social",t:"Publish 1 post on LinkedIn"});
-  if(i===2)a.push({g:"social",t:"Publish 1 post on Medium"});
-  return a;
+// One-time user-requested reset of the desert tree ritual only.
+// Routine activities, monthly/lifetime records and all other saved data remain untouched.
+if(storageAvailable && data._treeWateringReset_v1 !== true){
+  data._treeWateringDates = [];
+  data._treeWateringReset_v1 = true;
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+  catch(err) { console.error('Could not save the tree watering reset:', err); }
 }
 
-function row(i,g,t){
-  let k=id(g,t),v=yes(i,k);
-  return `<label class="task ${v?"done":""}">
-    <input type="checkbox" data-k="${esc(k)}" ${v?"checked":""}>
-    <span class="label">${esc(t)}</span>
-  </label>`;
+const pad=n=>String(n).padStart(2,'0');
+function dateKey(d){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
+function fromKey(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0,0)}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function mondayOf(d){const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x}
+function fmt(d,opt={weekday:'long',day:'numeric',month:'long',year:'numeric'}){return new Intl.DateTimeFormat('en-IN',opt).format(d)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function dayRecord(d){const k=dateKey(d);if(!data[k]||typeof data[k]!=='object'||Array.isArray(data[k]))data[k]={};return data[k]}
+function save(){if(!storageAvailable){toast('Saved data is read-only: storage could not be safely loaded.');return}try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));$('savedStatus').textContent='Saved just now · this device';}catch(err){console.error(err);toast('Could not save. Your existing data has not been cleared.')}}
+function keyFor(group,task){return group+'__'+task}
+function checked(d,key){const rec=data[dateKey(d)];return !!(rec&&rec[key]===true)}
+function allDateKeys(){return Object.keys(data).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort()}
+function historyCount(key){let n=0;for(const k of allDateKeys()){const rec=data[k];if(rec&&rec[key]===true)n++}return n}
+function monthBounds(d){const y=d.getFullYear(),m=d.getMonth(),last=new Date(y,m+1,0).getDate();return {start:new Date(y,m,1,12),last,total:last,month:m,year:y}}
+function monthCount(key,d){const b=monthBounds(d);let n=0;for(let day=1;day<=b.total;day++){const k=`${b.year}-${pad(b.month+1)}-${pad(day)}`;if(data[k]&&data[k][key]===true)n++}return n}
+function goalDays(kind){let n=0;for(const k of allDateKeys()){const rec=data[k]||{};let full=true;for(let i=0;i<10;i++)if(rec[kind+'__'+i]!==true){full=false;break}if(full)n++}return n}
+function monthlyGoalDays(kind,d){const b=monthBounds(d);let n=0;for(let day=1;day<=b.total;day++){const rec=data[`${b.year}-${pad(b.month+1)}-${pad(day)}`]||{};if(Array.from({length:10},(_,i)=>rec[kind+'__'+i]===true).every(Boolean))n++}return n}
+function allActivityDays(){let n=0;for(const k of allDateKeys()){const rec=data[k]||{};for(const [key,val] of Object.entries(rec)){if(val===true&&!key.startsWith('water__')&&!key.startsWith('steps__'))n++}}return n}
+function activeDates(){return allDateKeys().filter(k=>{const r=data[k]||{};return Object.values(r).some(v=>v===true)}).length}
+function tasksFor(d){const wd=d.getDay(),a=[];groups.forEach(g=>{if(g.weekdays&&!g.weekdays.includes(wd))return;g.items.forEach(t=>{if(t==='WORKOUT'){const workout=workoutByDay[wd];if(workout)a.push({g:g.id,t:workout})}else a.push({g:g.id,t})})});supplements.forEach(t=>a.push({g:'supplements',t}));a.push({g:'upskill',t:'Upskill – 15 min'},{g:'social',t:'Post daily progress on Instagram'});if(wd===6)a.push({g:'social',t:'Publish 1 post on LinkedIn'});if(wd===0)a.push({g:'social',t:'Publish 1 post on Medium'});return a}
+function heatmap(key,d){const b=monthBounds(d),firstWeekday=new Date(b.year,b.month,1).getDay(),monthLabel=fmt(d,{month:'long',year:'numeric'});let cells='';for(let i=0;i<firstWeekday;i++)cells+='<button class="month-cell blank" tabindex="-1" aria-hidden="true"></button>';for(let day=1;day<=b.total;day++){const x=new Date(b.year,b.month,day,12),on=checked(x,key),cur=dateKey(x)===dateKey(d);cells+=`<button class="month-cell ${on?'on ':''}${cur?'current':''}" type="button" data-day="${dateKey(x)}" aria-label="${esc(fmt(x))}: ${on?'completed':'not completed'}" aria-pressed="${on}">${day}</button>`}const n=monthCount(key,d),pct=Math.round(n/b.total*100);return `<div class="heatmap-label">${esc(monthLabel.toUpperCase())} · ${n}/${b.total} DAYS COMPLETED · ${pct}%</div><div class="heatdots month-grid">${cells}</div>`}
+function taskRow(d,g,t){const key=keyFor(g,t),v=checked(d,key),count=historyCount(key),monthly=monthCount(key,d),b=monthBounds(d),id=`h-${btoa(unescape(encodeURIComponent(key))).replace(/[^a-z0-9]/gi,'').slice(0,18)}`;return `<div class="task ${v?'done':''}" data-task="${esc(key)}" data-task-row tabindex="0" role="group" aria-label="${esc(t)}. Click the row to toggle completion."><input class="task-check" type="checkbox" data-k="${esc(key)}" ${v?'checked':''} aria-label="Mark ${esc(t)} ${v?'incomplete':'complete'} for ${esc(dateKey(d))}"><span class="task-label">${esc(t)}</span><span class="task-meta"><span class="count-pill" title="Lifetime count from saved completed dates. The selected date may be unchecked while earlier dates remain completed."><b>${count}</b> ${count===1?'day':'days'}</span><button class="history-btn" type="button" data-history="${esc(key)}" aria-expanded="false" aria-controls="${id}">${fmt(d,{month:'short'}).toUpperCase()} ${monthly}/${b.total}</button></span><div class="heatmap" id="${id}">${heatmap(key,d)}</div></div>`}
+function groupCard(d,g){if(g.weekdays&&!g.weekdays.includes(d.getDay()))return '';let items=g.items.filter(t=>t!=='WORKOUT'||workoutByDay[d.getDay()]).map(t=>t==='WORKOUT'?workoutByDay[d.getDay()]:t);if(!items.length)return '';return `<section class="group"><header class="grouphead"><h4>${esc(g.title)}</h4><small>${g.note||`${items.filter(t=>checked(d,keyFor(g.id,t))).length}/${items.length} complete`}</small></header><div class="tasklist">${items.map(t=>taskRow(d,g.id,t)).join('')}</div></section>`}
+function hourlyCard(d,kind,title,desc){const n=Array.from({length:10},(_,i)=>checked(d,kind+'__'+i)).filter(Boolean).length,days=goalDays(kind),monthDays=monthlyGoalDays(kind,d),b=monthBounds(d);return `<section class="group"><header class="grouphead"><h4>${title}</h4><small>${n}/10 today · ${days} goal days all time</small></header><div class="info">${desc}</div><div class="goal-summary"><span>Full target achieved · ${fmt(d,{month:'short'}).toUpperCase()}</span><strong>${monthDays}/${b.total} days</strong></div><div class="hourgrid">${Array.from({length:10},(_,i)=>{const k=kind+'__'+i,v=checked(d,k);return `<label class="hour ${v?'checked':''}"><input type="checkbox" data-k="${k}" ${v?'checked':''} aria-label="${kind==='water'?'Water':'500 steps'} check-in ${i+1}"><span>${kind==='water'?'Water':'500 steps'}<br>Check-in ${i+1}</span></label>`}).join('')}</div></section>`}
+
+// Tree ritual: one watering per real calendar date. Missed days pause growth; they never erase it.
+function treeTargetDays(){const n=Number(data._treeTargetDays);return Number.isInteger(n)&&n>=1&&n<=3650?n:30}
+function treeWateringDates(){if(!Array.isArray(data._treeWateringDates))data._treeWateringDates=[];return [...new Set(data._treeWateringDates.filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)))].sort()}
+function treeMarkup(stage,animate=false){
+  const target=treeTargetDays(),n=Math.max(0,Math.min(target,stage)),ratio=n/target,top=258-ratio*154;
+  const specs=[{at:.24,side:-1,len:24},{at:.34,side:1,len:29},{at:.46,side:-1,len:34},{at:.56,side:1,len:39},{at:.66,side:-1,len:34},{at:.75,side:1,len:31},{at:.83,side:-1,len:25},{at:.9,side:1,len:21}];
+  const leaf=(x,y,a,i)=>`<g class="${animate?'new-growth':''}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a})"><path d="M0 0 C-15 -10 -16 -27 0 -32 C15 -25 16 -10 0 0Z" fill="${['#a9d88d','#78bd79','#b6dc91','#6eaa70'][i%4]}" stroke="#477b50" stroke-width="1.2"/><path d="M0 -2 Q1 -15 0 -28" stroke="#e2f2b7" stroke-width="1.1" fill="none" opacity=".75"/></g>`;
+  let branches='',leaves=leaf(180,top-1,-24,0);const amount=Math.min(30,Math.ceil(ratio*30)),branchCount=Math.min(8,Math.floor(amount/3));
+  for(let i=1;i<=amount;i++){if(i<=branchCount*2){const b=specs[Math.floor((i-1)/2)],y=279-(279-top)*b.at,x=180+b.side*b.len,ey=y-18-ratio*3;if(i%2){branches+=`<path class="${animate?'new-branch':''}" pathLength="1" d="M180 ${y.toFixed(1)} Q${(180+b.side*b.len*.48).toFixed(1)} ${(y-3).toFixed(1)} ${x.toFixed(1)} ${ey.toFixed(1)}" fill="none" stroke="#80583e" stroke-width="${(3.8+ratio*1.2).toFixed(1)}" stroke-linecap="round"/>`;leaves+=leaf(x,ey,b.side<0?-48:48,i)}else leaves+=leaf(180+b.side*b.len*.58,y-12,b.side<0?30:-30,i)}else{const side=i%2?-1:1,spread=7+(i*7)%28,yy=top+5+(i*13)%Math.max(12,Math.min(42,amount*1.3));leaves+=leaf(180+side*spread,yy,side<0?-38:38,i)}}
+  return `<defs><linearGradient id="bark" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#60412f"/><stop offset=".48" stop-color="#bd8756"/><stop offset="1" stop-color="#694333"/></linearGradient></defs><ellipse cx="180" cy="282" rx="${18+ratio*16}" ry="5" fill="#3c2924" opacity=".3"/><path d="M180 278 Q169 283 158 280 M180 278 Q191 284 202 280" fill="none" stroke="#80583e" stroke-width="2.5" stroke-linecap="round"/><path d="M180 279 C${176-ratio*1.8} ${270-ratio*25} ${184+ratio*1.8} ${top+35} 180 ${top}" fill="none" stroke="url(#bark)" stroke-width="${(2.8+ratio*5.7).toFixed(1)}" stroke-linecap="round"/>${branches}${leaves}`;
 }
-
-function card(i,g){
-  // Hide the complete Hair Care section on all days except Friday and Wednesday.
-  if(g.days&&!g.days.includes(i))return "";
-  let items=g.items.filter(t=>t!=="WORKOUT"||i!==2).map(t=>t==="WORKOUT"?workouts[i]:t);
-  if(!items.length)return "";
-  return `<section class="group">
-    <div class="grouphead"><h3>${esc(g.title)}</h3><small>${g.note||""}</small></div>
-    <div class="tasks">${items.map(t=>row(i,g.id,t)).join("")}</div>
-  </section>`;
+function renderTree(animate=false){
+  const target=treeTargetDays(),dates=treeWateringDates(),count=Math.min(dates.length,target),pct=Math.round(count/target*100);
+  $('treeSvg').innerHTML=treeMarkup(count,animate);$('treeDays').textContent=`${count}/${target}`;$('treePercent').textContent=pct+'%';$('treeBar').style.width=pct+'%';$('treeGoalLabel').textContent=`Goal: ${target} watering days`;
+  const watered=dates.includes(dateKey(new Date())),complete=count>=target;
+  $('waterTreeBtn').disabled=!storageAvailable||watered||complete||wateringInProgress;$('growthSection').classList.toggle('watered',watered);
+  $('vesselAction').textContent=complete?'TREE GROWN':watered?'WATERED TODAY':'TAP TO WATER';$('vesselDate').textContent=watered?'Come back tomorrow':complete?'A little life, grown':'One watering per day';
+  $('treeMessage').innerHTML=complete?`<b>Your little tree has fully grown.</b><br>${target} watering days brought life to this desert.`:watered?'<b>Beautiful. You showed up today.</b><br>Your tree has grown a little. Return tomorrow to nurture it again.':count===0?'<b>Your tree is waiting.</b><br>Each watering day adds a little growth. Miss a day? Your progress stays safe.':`<b>${count} of ${target} watering days completed.</b><br>Keep nurturing it one day at a time. Your growth is never lost.`;
 }
+let wateringInProgress=false;
+function waterTree(){let key=dateKey(new Date()),ds=treeWateringDates();if(wateringInProgress)return;if(ds.includes(key)){toast('Your tree has already been watered today.');return}if(ds.length>=treeTargetDays()){toast('Your little tree is fully grown.');return}wateringInProgress=true;let sec=$('growthSection'),btn=$('waterTreeBtn');sec.classList.add('pouring');btn.style.pointerEvents='none';toast("Giving your tree today's water...");let scene=$('desertScene').getBoundingClientRect(),v=btn.getBoundingClientRect(),drop=$('pourDrop'),startX=v.left+v.width*.23-scene.left,startY=v.top+v.height*.2-scene.top,targetX=scene.width*.5,targetY=scene.height-47;drop.style.left=startX+'px';drop.style.top=startY+'px';drop.style.opacity='1';drop.animate([{transform:'translate(0,0) scale(1)'},{transform:`translate(${targetX-startX}px,${targetY-startY}px) scale(.85,1.2)`}],{duration:950,easing:'cubic-bezier(.3,.05,.7,1)',fill:'forwards'}).onfinish=()=>{drop.style.opacity='0';sec.classList.remove('pouring');sec.classList.add('impact');ds.push(key);data._treeWateringDates=ds;try{save();renderTree();toast('One drop delivered. Your tree has grown a little.')}catch(e){toast('Could not save watering. Please check browser storage.')}wateringInProgress=false;btn.style.pointerEvents='auto';setTimeout(()=>sec.classList.remove('impact'),800)}}
+$('waterTreeBtn').addEventListener('click',waterTree);
+function openTreeSettings(){$('treeTargetInput').value=treeTargetDays();$('treeSettings').hidden=false;$('treeTargetInput').focus()}
+function closeTreeSettings(){$('treeSettings').hidden=true}
+$('openTreeSettings').addEventListener('click',openTreeSettings);$('cancelTreeSettings').addEventListener('click',closeTreeSettings);
+$('confirmTreeReset').addEventListener('click',()=>{const next=Number($('treeTargetInput').value);if(!Number.isInteger(next)||next<1||next>3650){toast('Choose a whole number from 1 to 3650 days.');return}if(!confirm(`Start a fresh tree journey with a ${next}-day goal? This resets only tree watering progress. Your routine and other tracker data will stay untouched.`))return;if(!storageAvailable){toast('Storage is unavailable; the tree was not reset.');return}data._treeTargetDays=next;data._treeWateringDates=[];save();closeTreeSettings();renderTree();toast(`Fresh journey started: ${next} watering days to grow your tree.`)});
 
-function hourly(i,kind,title,desc){
-  let n=Array.from({length:10},(_,x)=>yes(i,kind+"__"+x)).filter(Boolean).length;
-  return `<section class="group">
-    <div class="grouphead"><h3>${title}</h3><small>${n}/10 completed</small></div>
-    <div class="info">${desc}</div>
-    <div class="hourgrid">
-      ${Array.from({length:10},(_,x)=>{
-        let k=kind+"__"+x,v=yes(i,k);
-        return `<label class="hour ${v?"checked":""}">
-          <input type="checkbox" data-k="${k}" ${v?"checked":""}>
-          ${kind==="water"?"Water":"500 steps"}<br>Check-in ${x+1}
-        </label>`;
-      }).join("")}
-    </div>
-  </section>`;
-}
+function render(){const d=selected,dk=dateKey(d),tasks=tasksFor(d),done=tasks.filter(t=>checked(d,keyFor(t.g,t.t))).length,p=tasks.length?Math.round(done/tasks.length*100):0,water=Array.from({length:10},(_,i)=>checked(d,'water__'+i)).filter(Boolean).length,steps=Array.from({length:10},(_,i)=>checked(d,'steps__'+i)).filter(Boolean).length*500;
+$('dateTitle').textContent=fmt(d);$('heroKicker').textContent=dk===dateKey(today)?'TODAY / DAILY SIGNAL':(d>today?'PLANNED DATE / DAILY SIGNAL':'HISTORICAL DATE / DAILY SIGNAL');$('dailyCount').textContent=`${done} of ${tasks.length} scheduled activities completed`;$('percent').textContent=p+'%';$('doneCount').textContent=`${done} / ${tasks.length}`;$('lifetimeCount').textContent=allActivityDays().toLocaleString('en-IN');$('activeDays').textContent=activeDates().toLocaleString('en-IN');$('mainBar').style.width=p+'%';
+const weekStart=mondayOf(d),weekEnd=addDays(weekStart,6);$('weekRange').textContent=`${fmt(weekStart,{day:'2-digit',month:'short'})} — ${fmt(weekEnd,{day:'2-digit',month:'short',year:'numeric'})}`;$('datePicker').value=dk;
+$('days').innerHTML=Array.from({length:7},(_,i)=>{const x=addDays(weekStart,i),a=tasksFor(x),n=a.filter(t=>checked(x,keyFor(t.g,t.t))).length,q=a.length?Math.round(n/a.length*100):0,k=dateKey(x),isToday=k===dateKey(today),active=k===dk;return `<button class="day ${active?'active':''} ${isToday?'today':''}" data-day="${k}" aria-pressed="${active}"><strong>${fmt(x,{weekday:'short'}).toUpperCase()}</strong><b>${pad(x.getDate())}</b><small>${fmt(x,{month:'short'}).toUpperCase()}</small><div class="dayline"><i style="width:${q}%"></i></div></button>`}).join('');
+$('routine').innerHTML=groups.map(g=>groupCard(d,g)).join('');$('nonneg').innerHTML=hourlyCard(d,'water','WATER INTAKE','Tick one check-in each time you drink water during the hour.')+hourlyCard(d,'steps','STEP CHECK-INS','Each completed check-in represents your 500-step hourly target. Ten check-ins = 5,000 steps.')+`<section class="group"><header class="grouphead"><h4>SUPPLEMENTS</h4><small>Daily · ${supplements.filter(t=>checked(d,keyFor('supplements',t))).length}/${supplements.length}</small></header><div class="tasklist">${supplements.map(t=>taskRow(d,'supplements',t)).join('')}</div></section><section class="group"><header class="grouphead"><h4>UPSKILL</h4><small>15 minutes daily</small></header><div class="tasklist">${taskRow(d,'upskill','Upskill – 15 min')}</div></section><section class="group"><header class="grouphead"><h4>SOCIAL MEDIA</h4><small>Scheduled posts</small></header><div class="tasklist">${taskRow(d,'social','Post daily progress on Instagram')}${d.getDay()===6?taskRow(d,'social','Publish 1 post on LinkedIn'):''}${d.getDay()===0?taskRow(d,'social','Publish 1 post on Medium'):''}</div></section>`;
+const routine=tasks.filter(t=>!['supplements','upskill','social'].includes(t.g)),rd=routine.filter(t=>checked(d,keyFor(t.g,t.t))).length,non=tasks.filter(t=>['supplements','upskill','social'].includes(t.g)),nd=non.filter(t=>checked(d,keyFor(t.g,t.t))).length;$('routineProgress').textContent=(routine.length?Math.round(rd/routine.length*100):0)+'% complete';$('nonProgress').textContent=(non.length?Math.round(nd/non.length*100):0)+'% complete';$('savedStatus').textContent=storageAvailable?'Saved automatically on this device':'Storage could not be read safely';renderTree();}
+let toastTimer;function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2200)}
+function setDate(d){selected=new Date(d);selected.setHours(12,0,0,0);render()}
+document.addEventListener('change',e=>{const input=e.target.closest('input[type=checkbox][data-k]');if(!input)return;const key=input.dataset.k,rec=dayRecord(selected);rec[key]=input.checked;save();render();const count=key.startsWith('water__')||key.startsWith('steps__')?null:historyCount(key);if(count!==null)toast(input.checked?`Completed · ${count} distinct ${count===1?'day':'days'} total`:`Updated · ${count} distinct ${count===1?'day':'days'} total`);else toast('Daily check-in updated');});
+document.addEventListener('click',e=>{const day=e.target.closest('[data-day]');if(day){setDate(fromKey(day.dataset.day));return}const hist=e.target.closest('[data-history]');if(hist){e.stopPropagation();const key=hist.dataset.history,row=hist.closest('.task'),panel=row.querySelector('.heatmap'),open=!panel.classList.contains('open');panel.classList.toggle('open',open);hist.setAttribute('aria-expanded',String(open));panel.innerHTML=heatmap(key,selected);return}const row=e.target.closest('[data-task-row]');if(row&&!e.target.closest('input,button,a,select,textarea,[data-history],[data-day]')){const input=row.querySelector('input[type=checkbox][data-k]');if(input){input.checked=!input.checked;input.dispatchEvent(new Event('change',{bubbles:true}))}}});
+document.addEventListener('keydown',e=>{const row=e.target.closest('[data-task-row]');if(row&&(e.key==='Enter'||e.key===' ')&&e.target===row){e.preventDefault();const input=row.querySelector('input[type=checkbox][data-k]');if(input){input.checked=!input.checked;input.dispatchEvent(new Event('change',{bubbles:true}))}}});
+$('prevDay').onclick=()=>setDate(addDays(selected,-1));$('nextDay').onclick=()=>setDate(addDays(selected,1));$('todayBtn').onclick=$('todayTop').onclick=()=>setDate(today);$('datePicker').addEventListener('change',e=>{if(e.target.value)setDate(fromKey(e.target.value))});$('resetDay').onclick=()=>{if(!confirm(`Reset all saved check-ins for ${fmt(selected)}? This cannot be undone.`))return;delete data[dateKey(selected)];save();render();toast('Selected date reset')};
+if(!storageAvailable){document.querySelectorAll('input[type=checkbox],button#resetDay').forEach(el=>el.disabled=true);toast('Saved data could not be parsed; editing is paused to protect it.')}
+render();renderTree();
 
-function render(){
-  let i=selected,d=dates[i],tasks=list(i);
-  let done=tasks.filter(t=>yes(i,id(t.g,t.t))).length;
-  let p=Math.round(done/tasks.length*100);
-  let water=Array.from({length:10},(_,x)=>yes(i,"water__"+x)).filter(Boolean).length;
-  let steps=Array.from({length:10},(_,x)=>yes(i,"steps__"+x)).filter(Boolean).length*500;
-
-  document.getElementById("dateTitle").textContent=`${d[1]}, ${Number(d[3])} November 2026`;
-  document.getElementById("todayLabel").textContent=d[0]===today?"TODAY'S FOCUS":"SELECTED DAY";
-  document.getElementById("outsideNotice").style.display=(today<dates[0][0]||today>dates[6][0])?"block":"none";
-
-  document.getElementById("days").innerHTML=dates.map((x,j)=>{
-    let a=list(j),n=a.filter(t=>yes(j,id(t.g,t.t))).length,q=Math.round(n/a.length*100);
-    return `<button class="day ${j===i?"active":""}" data-day="${j}">
-      <strong>${x[2]}</strong><small>${x[3]} NOV</small>
-      <div class="mini"><span style="width:${q}%"></span></div>
-    </button>`;
-  }).join("");
-
-  document.getElementById("routine").innerHTML=groups.map(g=>card(i,g)).join("");
-
-  document.getElementById("nonneg").innerHTML=
-    hourly(i,"water","WATER INTAKE","Tick one check-in each time you drink water during the hour.")+
-    hourly(i,"steps","STEP CHECK-INS","Each completed check-in represents your 500-step hourly target. Ten check-ins = 5,000 steps.")+
-    `<section class="group">
-      <div class="grouphead"><h3>SUPPLEMENTS</h3><small>Daily</small></div>
-      <div class="tasks">${supplements.map(t=>row(i,"supplements",t)).join("")}</div>
-    </section>
-    <section class="group">
-      <div class="grouphead"><h3>UPSKILL</h3><small>15 minutes daily</small></div>
-      <div class="tasks">${row(i,"upskill","Upskill – 15 min")}</div>
-    </section>
-    <section class="group">
-      <div class="grouphead"><h3>SOCIAL MEDIA</h3><small>Scheduled posts</small></div>
-      <div class="tasks">
-        ${row(i,"social","Post daily progress on Instagram")}
-        ${i===1?row(i,"social","Publish 1 post on LinkedIn"):""}
-        ${i===2?row(i,"social","Publish 1 post on Medium"):""}
-      </div>
-    </section>`;
-
-  document.getElementById("percent").textContent=p+"%";
-  document.getElementById("mainBar").style.width=p+"%";
-  document.getElementById("doneCount").textContent=`${done} / ${tasks.length}`;
-  document.getElementById("dailyCount").textContent=`${done} of ${tasks.length} scheduled tasks completed`;
-  document.getElementById("stepCount").textContent=steps.toLocaleString("en-IN")+" / 5,000";
-  document.getElementById("waterCount").textContent=water+" / 10";
-
-  let r=tasks.filter(t=>!["supplements","upskill","social"].includes(t.g));
-  let rd=r.filter(t=>yes(i,id(t.g,t.t))).length;
-  let n=tasks.filter(t=>["supplements","upskill","social"].includes(t.g));
-  let nd=n.filter(t=>yes(i,id(t.g,t.t))).length;
-
-  document.getElementById("routineProgress").textContent=Math.round(rd/r.length*100)+"% complete";
-  document.getElementById("nonProgress").textContent=Math.round(nd/n.length*100)+"% complete";
-}
-
-document.addEventListener("change",e=>{
-  if(e.target.matches('input[type=checkbox][data-k]')){
-    ds(selected)[e.target.dataset.k]=e.target.checked;
-    save();
-    render();
-  }
-});
-
-document.addEventListener("click",e=>{
-  let b=e.target.closest("[data-day]");
-  if(b){selected=+b.dataset.day;render()}
-});
-
-document.getElementById("resetDay").onclick=()=>{
-  if(confirm("Reset all saved checkboxes for this selected day?")){
-    delete data[dates[selected][0]];
-    save();
-    render();
-  }
-};
-
-render();
 </script>
-</body>
-</html>
+</body></html>
